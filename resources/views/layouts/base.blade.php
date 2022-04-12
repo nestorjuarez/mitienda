@@ -15,6 +15,7 @@
 	<link rel="stylesheet" type="text/css" href='{{ asset("assets/css/chosen.min.css") }}'>
 	<link rel="stylesheet" type="text/css" href='{{ asset("assets/css/style.css") }}'>
 	<link rel="stylesheet" type="text/css" href='{{ asset("assets/css/color-01.css") }}'>
+	<link rel="stylesheet" href="css/app.css">
 	@livewireScripts
 </head>
 <body class="home-page home-01 ">
@@ -36,15 +37,15 @@
 						<div class="topbar-menu left-menu">
 							<ul>
 								<li class="menu-item" >
-									<a title="Hotline: (+123) 456 789" href="#" ><span class="icon label-before fa fa-mobile"></span>Hotline: (+123) 456 789</a>
+									<a title="Telefono Celular: (+54) 3549 521281" href="#" ><span class="icon label-before fa fa-mobile"></span>Celular:(+54) 3549 521281</a>
+										{{-- Hotline: (+123) 456 789</a> --}}
 								</li>
 							</ul>
 						</div>
 						<div class="topbar-menu right-menu">
 							<ul>
-								<li class="menu-item" ><a title="Register or Login" href="login.html">Login</a></li>
-								<li class="menu-item" ><a title="Register or Login" href="register.html">Register</a></li>
-								<li class="menu-item lang-menu menu-item-has-children parent">
+								
+								{{-- <li class="menu-item lang-menu menu-item-has-children parent">
 									<a title="English" href="#"><span class="img label-before"><img src="assets/images/lang-en.png" alt="lang-en"></span>English<i class="fa fa-angle-down" aria-hidden="true"></i></a>
 									<ul class="submenu lang" >
 										<li class="menu-item" ><a title="hungary" href="#"><span class="img label-before"><img src="assets/images/lang-hun.png" alt="lang-hun"></span>Hungary</a></li>
@@ -52,21 +53,53 @@
 										<li class="menu-item" ><a title="french" href="#"><span class="img label-before"><img src="assets/images/lang-fra.png" alt="lang-fre"></span>French</a></li>
 										<li class="menu-item" ><a title="canada" href="#"><span class="img label-before"><img src="assets/images/lang-can.png" alt="lang-can"></span>Canada</a></li>
 									</ul>
-								</li>
-								<li class="menu-item menu-item-has-children parent" >
-									<a title="Dollar (USD)" href="#">Dollar (USD)<i class="fa fa-angle-down" aria-hidden="true"></i></a>
-									<ul class="submenu curency" >
-										<li class="menu-item" >
-											<a title="Pound (GBP)" href="#">Pound (GBP)</a>
-										</li>
-										<li class="menu-item" >
-											<a title="Euro (EUR)" href="#">Euro (EUR)</a>
-										</li>
-										<li class="menu-item" >
-											<a title="Dollar (USD)" href="#">Dollar (USD)</a>
-										</li>
-									</ul>
-								</li>
+								</li> --}}
+								
+								@if(Route::has('login'))
+									@auth
+										@if(Auth::user()->uType === 'ADM')
+											<li class="menu-item menu-item-has-children parent" >
+											<a title="My Account" href="#">My Account {{ Auth::user()->name }}<i class="fa fa-angle-down" aria-hidden="true"></i></a>
+												<ul class="submenu curency" >
+													<li class="menu-item" >
+													<a title="Dashboard" href="{{ route('admin.dashboard')}}">Dashboard</a>
+													</li>
+												
+													<li class="menu-item" >
+														<form method="POST" action="{{ route('logout') }}">
+															@csrf
+															 <a href="{{ route('logout') }}" onclick="event.preventDefault();  this.closest('form').submit();">
+																	Cerrar sesión
+															</a>
+														 </form>
+													</li>
+												</ul>
+											</li>
+										@else
+												<li class="menu-item menu-item-has-children parent" >
+													<a title="My Account" href="#">My Account {{ Auth::user()->name }}<i class="fa fa-angle-down" aria-hidden="true"></i></a>
+														<ul class="submenu curency" >
+															<li class="menu-item" >
+															<a title="Dashboard" href="{{ route('user.dashboard')}}">Dashboard</a>
+															</li>
+														
+															<li class="menu-item" >
+																<form method="POST" action="{{ route('logout') }}">
+																	@csrf
+																	<a href="{{ route('logout') }}" onclick="event.preventDefault();  this.closest('form').submit();">
+																			Cerrar sesión
+																	</a>
+																</form>
+															</li>
+														</ul>
+													</li>
+										@endif
+									@else
+										<li class="menu-item" ><a title="Register or Login" href="{{route('login')}}">Login</a></li>
+										<li class="menu-item" ><a title="Register or Login" href="{{ route('register')}}">Register</a></li>
+									@endif
+
+								@endif
 							</ul>
 						</div>
 					</div>
@@ -76,7 +109,7 @@
 					<div class="mid-section main-info-area">
 
 						<div class="wrap-logo-top left-section">
-						<a href="index.html" class="link-to-home"><img src="{{ asset('assets/images/logo-top-1.png')}}" alt="mercado"></a>
+						<a href="index.html" class="link-to-home"><img src="{{ asset('assets/images/logo.jpg')}}" alt="mercado"></a>
 						</div>
 
 						<div class="wrap-search center-section">
@@ -117,7 +150,7 @@
 									<i class="fa fa-heart" aria-hidden="true"></i>
 									<div class="left-info">
 										<span class="index">0 item</span>
-										<span class="title">Wishlist</span>
+										<span class="title">Lista Deseos</span>
 									</div>
 								</a>
 							</div>
@@ -125,8 +158,8 @@
 								<a href="#" class="link-direction">
 									<i class="fa fa-shopping-basket" aria-hidden="true"></i>
 									<div class="left-info">
-										<span class="index">4 items</span>
-										<span class="title">CART</span>
+										<span class="index">0 items</span>
+										<span class="title">CARRITO</span>
 									</div>
 								</a>
 							</div>
@@ -165,16 +198,16 @@
 									<a href="about-us.html" class="link-term mercado-item-title">About Us</a>
 								</li>
 								<li class="menu-item">
-									<a href="/shop" class="link-term mercado-item-title">Shop</a>
+									<a href="/shop" class="link-term mercado-item-title">MiTienda</a>
 								</li>
 								<li class="menu-item">
-									<a href="/cart" class="link-term mercado-item-title">Cart</a>
+									<a href="/cart" class="link-term mercado-item-title">Carro</a>
 								</li>
 								<li class="menu-item">
-									<a href="/checkout" class="link-term mercado-item-title">Checkout</a>
+									<a href="/checkout" class="link-term mercado-item-title">Checkout de Pagos</a>
 								</li>
 								<li class="menu-item">
-									<a href="contact-us.html" class="link-term mercado-item-title">Contact Us</a>
+									<a href="contact" class="link-term mercado-item-title">Contacto</a>
 								</li>																	
 							</ul>
 						</div>
@@ -449,5 +482,6 @@
 	<script src="{{ asset('assets/js/jquery.countdown.min.js')}}"> </script>
 	<script src="{{ asset('assets/js/jquery.sticky.js')}}"> </script>
 	<script src="{{ asset('assets/js/functions.js')}}"> </script>
+	<script src="js/app.js"></script>
 </body>
 </html>
