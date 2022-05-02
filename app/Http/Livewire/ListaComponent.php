@@ -6,11 +6,13 @@ use App\Models\Product;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class ShopComponent extends Component
+class ListaComponent extends Component
 {
     use WithPagination;
+
     public function render()
     {
-        return view('livewire.shop-component',['products' => Product::paginate(12)])->layout('layouts.base');
+
+        return view('livewire.lista-component',['products' => Product::Paginate(6)])->layout('layouts.base');
     }
 }

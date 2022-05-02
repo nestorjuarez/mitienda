@@ -3,7 +3,9 @@
 use App\Http\Livewire\CartComponent;
 use App\Http\Livewire\HomeComponent;
 use App\Http\Livewire\ShopComponent;
+use App\Http\Livewire\ListaComponent;
 use Illuminate\Support\Facades\Route;
+use App\Http\Livewire\DetailComponent;
 use App\Http\Livewire\ContactComponent;
 use App\Http\Livewire\CheckoutComponent;
 use App\Http\Livewire\User\UserDashboardComponent;
@@ -29,6 +31,7 @@ Route::get('/shop',ShopComponent::class);
 Route::get('/cart',CartComponent::class);
 Route::get('/checkout',CheckoutComponent::class);
 Route::get('/contact',ContactComponent::class);
+Route::get('/product/{slug}',DetailComponent::class);
 
 
 Route::middleware(['auth:sanctum','verified'])->group(function(){
